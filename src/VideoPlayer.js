@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef,Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import VideoControls from './VideoControls';
+import PropTypes from 'prop-types';
 import './styles.css';
 
-
 const VideoPlayer = ({ videos }) => {
-
   const [videoIndex, setVideoIndex] = useState(0);
   const [videoProgress, setVideoProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { videoSrc,link } = videos[videoIndex];
+  const { videoSrc, link } = videos[videoIndex];
 
   const videoRef = useRef();
   const intervalRef = useRef();
@@ -18,27 +17,26 @@ const VideoPlayer = ({ videos }) => {
   let currentPercentage;
   const videoStyling = `
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-`
+`;
 
-  const onDurationChangeHandler = (e) => {
+  const onDurationChangeHandler = e => {
     const seconds = Math.floor(e.target.duration);
     setDuration(seconds);
-};
+  };
 
-const onEnded = (e) => {
-  clearInterval(intervalRef.current);
-  toNextVideo();
+  const onEnded = () => {
+    clearInterval(intervalRef.current);
+    toNextVideo();
+  };
 
-};
- 
   const startTimer = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-        setVideoProgress(videoRef.current.currentTime);
+      setVideoProgress(videoRef.current.currentTime);
     }, [1000]);
   };
 
-  const onScrub = (value) => {
+  const onScrub = value => {
     clearInterval(intervalRef.current);
     videoRef.current.currentTime = value;
     setVideoProgress(videoRef.current.currentTime);
@@ -49,14 +47,14 @@ const onEnded = (e) => {
       setIsPlaying(true);
     }
     startTimer();
-  }; 
+  };
 
   const toPrevVideo = () => {
     setIsPlaying(false);
     if (videoIndex - 1 < 0) {
       setVideoIndex(videos.length - 1);
     } else {
-        setVideoIndex(videoIndex - 1);
+      setVideoIndex(videoIndex - 1);
     }
   };
 
@@ -65,11 +63,11 @@ const onEnded = (e) => {
     if (videoIndex < videos.length - 1) {
       setVideoIndex(videoIndex + 1);
     } else {
-        setVideoIndex(0);
+      setVideoIndex(0);
     }
   };
 
-   useEffect(() => {
+  useEffect(() => {
     if (isPlaying) {
       videoRef.current.play();
       setVideoProgress(videoRef.current.currentTime);
@@ -77,7 +75,7 @@ const onEnded = (e) => {
     } else {
       videoRef.current.pause();
     }
-  }, [isPlaying]); 
+  }, [isPlaying]);
 
   useEffect(() => {
     videoRef.current.pause();
@@ -85,47 +83,52 @@ const onEnded = (e) => {
     setIsPlaying(true);
   }, [videoIndex, videoSrc]);
 
-
   return (
     <Fragment>
-    {videos && (
-    <div className='video-player'>
-        <div className='video-info'>
-          <a className='link' href={link}>Source: {link}</a>
-      </div>
-      <div className='video-info'>
-        <video
-            ref={videoRef}
-            className="video"
-            onDurationChange={onDurationChangeHandler}
-            onEnded={onEnded}
-        ></video>
-        <VideoControls
-          isPlaying={isPlaying}
-          onPrevClick={toPrevVideo}
-          onNextClick={toNextVideo}
-          onPlayPauseClick={setIsPlaying}
-        />
-      </div>
+      {videos && (
+        <div className="video-player">
+          <div className="video-info">
+            <a className="link" href={link}>
+              Source: {link}
+            </a>
+          </div>
+          <div className="video-info">
+            <video
+              ref={videoRef}
+              className="video"
+              onDurationChange={onDurationChangeHandler}
+              onEnded={onEnded}
+            ></video>
+            <VideoControls
+              isPlaying={isPlaying}
+              onPrevClick={toPrevVideo}
+              onNextClick={toNextVideo}
+              onPlayPauseClick={setIsPlaying}
+            />
+          </div>
 
-      {duration && (
-      <input
-          type='range'
-          value={videoProgress}
-          step='1'
-          min='0'
-          max={duration}
-          className='progress'
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-          onKeyUp={onScrubEnd}
-          style={{ background: videoStyling }}
-        /> 
-      )} 
-    </div>
+          {duration && (
+            <input
+              type="range"
+              value={videoProgress}
+              step="1"
+              min="0"
+              max={duration}
+              className="progress"
+              onChange={e => onScrub(e.target.value)}
+              onMouseUp={onScrubEnd}
+              onKeyUp={onScrubEnd}
+              style={{ background: videoStyling }}
+            />
+          )}
+        </div>
       )}
     </Fragment>
   );
+};
+
+VideoPlayer.propTypes = {
+  videos: PropTypes.array,
 };
 
 export default VideoPlayer;
