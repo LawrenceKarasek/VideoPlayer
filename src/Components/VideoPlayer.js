@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 import VideoControls from './VideoControls';
 import PropTypes from 'prop-types';
-import './styles.css';
+import '../styles.css';
 
 const VideoPlayer = ({ videos }) => {
   const [videoIndex, setVideoIndex] = useState(0);
   const [videoProgress, setVideoProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-
   const { videoSrc, link } = videos[videoIndex];
 
   const videoRef = useRef();
@@ -31,8 +30,11 @@ const VideoPlayer = ({ videos }) => {
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
+
     intervalRef.current = setInterval(() => {
-      setVideoProgress(videoRef.current.currentTime);
+      if (videoRef.current) {
+        setVideoProgress(videoRef.current.currentTime);
+      }
     }, [1000]);
   };
 
@@ -78,9 +80,12 @@ const VideoPlayer = ({ videos }) => {
   }, [isPlaying]);
 
   useEffect(() => {
-    videoRef.current.pause();
-    videoRef.current.src = videoSrc;
-    setIsPlaying(true);
+    //console.log('useEffect1');
+    if (!isPlaying) {
+      videoRef.current.pause();
+      videoRef.current.src = videoSrc;
+      setIsPlaying(true);
+    }
   }, [videoIndex, videoSrc]);
 
   return (
@@ -98,6 +103,9 @@ const VideoPlayer = ({ videos }) => {
               className="video"
               onDurationChange={onDurationChangeHandler}
               onEnded={onEnded}
+              poster={'/giphyloading.gif'}
+              autoPlay={true}
+              muted={true}
             ></video>
             <VideoControls
               isPlaying={isPlaying}
@@ -106,7 +114,6 @@ const VideoPlayer = ({ videos }) => {
               onPlayPauseClick={setIsPlaying}
             />
           </div>
-
           {duration && (
             <input
               type="range"

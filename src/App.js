@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, Fragment } from 'react';
 import getData from './Videos';
-import VideoPlayer from './VideoPlayer';
-import './App.css';
+import VideoPlayer from './Components/VideoPlayer';
 
 function App() {
   const [videos, setVideos] = useState();
