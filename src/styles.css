@@ -2,7 +2,7 @@
   --white: #fff;
   --active-color: #00aeb0;
   --marker-color: red;
-  background:whitesmoke;
+  background: whitesmoke;
 }
 
 body {
@@ -12,15 +12,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-* {
-  margin: 0;
-} */
-
 
 * {
   box-sizing: border-box;
@@ -50,27 +41,6 @@ input[type='range'] {
   cursor: pointer;
 }
 
-/* .loading {
-  display: flex;
-  justify-content: center;
-}
-
-.loading::after {
-  content: '';
-  width: 50px;
-  height: 50px;
-  border: 10px solid #dddddd;
-  border-top-color: #009579;
-  border-radius: 50%;
-  animation: loading 1s linear infinite;
-}
-
-@keyframes loading {
-  to {
-    transform: rotate(1turn);
-  }
-} */
-
 .video-player {
   max-width: 50vw;
   padding: 24px;
@@ -79,7 +49,7 @@ input[type='range'] {
   margin: auto;
   color: var(--white);
   margin-top: 5vw;
-  background:var(--active-color);
+  background: var(--active-color);
 }
 
 .video {

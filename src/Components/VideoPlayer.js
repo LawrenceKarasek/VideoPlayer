@@ -80,7 +80,6 @@ const VideoPlayer = ({ videos }) => {
   }, [isPlaying]);
 
   useEffect(() => {
-    //console.log('useEffect1');
     if (!isPlaying) {
       videoRef.current.pause();
       videoRef.current.src = videoSrc;
@@ -93,8 +92,9 @@ const VideoPlayer = ({ videos }) => {
       {videos && (
         <div className="video-player">
           <div className="video-info">
-            <a className="link" href={link}>
-              Source: {link}
+            <label data-test-id="source-test-id">Source </label>
+            <a className="link" data-test-id="link" href={link}>
+              {link}
             </a>
           </div>
           <div className="video-info">

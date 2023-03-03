@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shows video info 1`] = `
+<React.Fragment>
+  <div
+    className="video-player"
+  >
+    <div
+      className="video-info"
+    >
+      <label
+        data-test-id="source-test-id"
+      >
+        Source 
+      </label>
+      <a
+        className="link"
+        data-test-id="link"
+        href="https://coverr.co/videos/a-dog-panting-outdoors-C5qfQ2fp5V"
+      >
+        https://coverr.co/videos/a-dog-panting-outdoors-C5qfQ2fp5V
+      </a>
+    </div>
+    <div
+      className="video-info"
+    >
+      <video
+        autoPlay={true}
+        className="video"
+        muted={true}
+        onDurationChange={[Function]}
+        onEnded={[Function]}
+        poster="/giphyloading.gif"
+      />
+      <VideoControls
+        isPlaying={false}
+        onNextClick={[Function]}
+        onPlayPauseClick={[Function]}
+        onPrevClick={[Function]}
+      />
+    </div>
+    0
+  </div>
+</React.Fragment>
+`;

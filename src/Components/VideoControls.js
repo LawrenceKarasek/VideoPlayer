@@ -11,7 +11,13 @@ const VideoControls = ({ isPlaying, onPlayPauseClick, onPrevClick, onNextClick }
       <Prev />
     </button>
     {isPlaying ? (
-      <button type="button" className="pause" onClick={() => onPlayPauseClick(false)} aria-label="Pause">
+      <button
+        type="button"
+        className="pause"
+        data-testid="pause-test-id"
+        onClick={() => onPlayPauseClick(false)}
+        aria-label="Pause"
+      >
         <Pause />
       </button>
     ) : (
