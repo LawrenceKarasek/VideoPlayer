@@ -1,4 +1,3 @@
-import { getByTestId, render, fireEvent, getByLabelText, screen, waitFor } from '@testing-library/react';
 import ShallowRenderer from 'react-test-renderer/shallow';
 import VideoPlayer from './VideoPlayer';
 

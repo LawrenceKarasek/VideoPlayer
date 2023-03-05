@@ -5,8 +5,9 @@ import VideoPlayer from './Components/VideoPlayer';
 function App() {
   const [videos, setVideos] = useState();
   const fetchData = useCallback(async () => {
-    const response = await getData();
-    setVideos(response);
+    getData()
+    .then(result => setVideos(result))
+    .catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
