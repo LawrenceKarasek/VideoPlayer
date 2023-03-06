@@ -4,11 +4,9 @@ The use of hooks in React when managing interactive video can be challenging whe
 
 The project includes a simple component hierarchy, data layer and different unit testing methods to help achieve best practices..
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Project setup 
 
-The project code is available here. It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes eslint and prettier to ensure clean code. References for eslint and prettier are included at the end of article.
+The project code is available here. It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to ensure clean code. 
 
 ## Project structure
 
