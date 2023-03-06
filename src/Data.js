@@ -11,12 +11,16 @@ const data = [
 
 const getData = () => {
   return new Promise((resolve, reject) => {
-    console.log('getdata');
+    try{
     if (data) {
       resolve(data);
     } else {
-      reject('An error occurred fetching data.');
+      reject('No data is available.');
     }
+    }
+    catch(e){
+      reject('An error occurred fetching data:' + e);
+    };
   });
 };
 

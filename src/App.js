@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, Fragment } from 'react';
-import getData from './Videos';
+import getData from './Data';
 import VideoPlayer from './Components/VideoPlayer';
 import './styles.css';
 
