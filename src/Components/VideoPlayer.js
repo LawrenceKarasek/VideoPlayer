@@ -9,7 +9,6 @@ const VideoPlayer = ({ videos }) => {
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const { videoSrc, link } = videos[videoIndex];
-
   const videoRef = useRef();
   const intervalRef = useRef();
 
