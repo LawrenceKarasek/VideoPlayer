@@ -6,14 +6,18 @@ The project includes a simple component hierarchy, data layer and different unit
 
 ## Project setup
 
-The project code is available here. It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to ensure clean code.
+The project is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to ensure clean code.
 
 ## Project structure
 
-App.js - entry point for the application
-Data,js - provides aysnchronous access to json data for videos
-Components - VideoPlayer and VideoControls
-Unit tests - App and Components each have their own unit tests
+### App.js 
+entry point for the application
+### Data,js 
+provides aysnchronous access to json data for videos
+### Components 
+VideoPlayer and VideoControls
+### Unit tests 
+App and Components each have their own unit tests
 
 ## Running the project
 
