@@ -4,9 +4,9 @@ The use of hooks in React when managing interactive video can be challenging whe
 
 The project includes a simple component hierarchy, data layer and different unit testing methods to help achieve best practices..
 
-## Project setup 
+## Project setup
 
-The project code is available here. It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to ensure clean code. 
+The project code is available here. It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and also includes [eslint](https://eslint.org/) and [prettier](https://prettier.io/) to ensure clean code.
 
 ## Project structure
 
@@ -42,12 +42,11 @@ Data is loaded asynchronously in App.js. On load, useEffect includes fetchData i
         fetchData();
     }, [fetchData]);
 
-The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to be state in the component level using setVideos. (Note: In a real-world scenario, where there could be multiple components using Videos, state would be stored at the application level using react-redux and the Store rather than at the component level which would allow data access across different components.) 
+The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to be state in the component level using setVideos. (Note: In a real-world scenario, where there could be multiple components using Videos, state would be stored at the application level using react-redux and the Store rather than at the component level which would allow data access across different components.)
 
 ### Data.js
 
 The getData mtehod in Data.js uses a Promise to asynchronously load json data using 'resolve'. If an error occurs, the Promise returns 'reject' with the error message. (Note: In a real-world scenario, data would be retrieved using a remiote request from a remote URL using axios or similar package).
-
 
     const getData = () => {
     return new Promise((resolve, reject) => {
@@ -64,12 +63,11 @@ The getData mtehod in Data.js uses a Promise to asynchronously load json data us
     });
     };
 
-
 ### VideoPlayer
 
 The VideoPlayer receives Videos from the main app.
 
-    VideoPlayer = ({ videos }) => 
+    VideoPlayer = ({ videos }) =>
 
 Videos are played based on the VideoIndex state property. The videoSrc maintains the current video and isPlaying sets the video to start. Video progress and duration are used to set the progress bar properties.
 
@@ -119,10 +117,10 @@ The current video that is playing can be switch using the VideoControls next and
             }
         };
 
-The HMTLVideoElement is maintained through re-renders by keeping through the videoRef. This allows the Video to not be impacted by state changes. There are build in events and properties of the Video: 
-    poster provides a default background before the video is loaded.
-    onDurationChangeHandler updates the state for the progress bar
-    onEnded manages the next video to play once the current one completes    
+The HMTLVideoElement is maintained through re-renders by keeping through the videoRef. This allows the Video to not be impacted by state changes. There are build in events and properties of the Video:
+poster provides a default background before the video is loaded.
+onDurationChangeHandler updates the state for the progress bar
+onEnded manages the next video to play once the current one completes
 
             const videoRef = useRef();
 
@@ -139,31 +137,32 @@ The HMTLVideoElement is maintained through re-renders by keeping through the vid
             >
             </video>
 
-The data for the progress bar is maintained using the intervalRef:  
+The data for the progress bar is maintained using the intervalRef:
 
     const intervalRef = useRef();
 
 The intervalRef is started when the video is started, calling the startTimer. The videoProgress is updated using setInterval. The interval is reset when the video ends.
 
- const onDurationChangeHandler = e => {
-    const seconds = Math.floor(e.target.duration);
-    setDuration(seconds);
-  };
+const onDurationChangeHandler = e => {
+const seconds = Math.floor(e.target.duration);
+setDuration(seconds);
+};
 
-  const onEnded = () => {
-    clearInterval(intervalRef.current);
-    toNextVideo();
-  };
+const onEnded = () => {
+clearInterval(intervalRef.current);
+toNextVideo();
+};
 
-  const startTimer = () => {
-    clearInterval(intervalRef.current);
+const startTimer = () => {
+clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       if (videoRef.current) {
         setVideoProgress(videoRef.current.currentTime);
       }
     }, [1000]);
-  };
+
+};
 
 ### VideoControls
 
@@ -195,11 +194,6 @@ VideoControls receives callback handlers to respond to events from buttons for P
     </div>
     );
 
-
 ### Unit tests
 
-App.js, VideoPlayer and VideoControls are unit tested to verify they are properly loaded. The objective of unit testing is to reflect actual user interacting as accurately as possible. To that end,  the react testing library is used for App and VideoPlayer to render the document, initiate user events and assert the results are correct. Also, shallow rendering is used with the react test renderer to verify the app loaded is correct.
-
-
-
-
+App.js, VideoPlayer and VideoControls are unit tested to verify they are properly loaded. The objective of unit testing is to reflect actual user interacting as accurately as possible. To that end, the react testing library is used for App and VideoPlayer to render the document, initiate user events and assert the results are correct. Also, shallow rendering is used with the react test renderer to verify the app loaded is correct.
