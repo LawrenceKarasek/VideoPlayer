@@ -1,4 +1,4 @@
-import { render, screen,fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import VideoControls from './VideoControls';
 
 const onPlayPauseClick = jest.fn();
@@ -30,12 +30,7 @@ it('renders the VideoControls', async () => {
 it('pause click causes function call', async () => {
   const { pauseButton } = setup();
   if (pauseButton) {
-
     fireEvent.click(pauseButton);
     expect(onPlayPauseClick).toHaveBeenCalled();
   }
 });
-
-
-
-//do test of pause click to test function call
