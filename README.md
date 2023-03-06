@@ -15,7 +15,7 @@ entry point for the application
 ### Data,js 
 provides aysnchronous access to json data for videos
 ### Components 
-VideoPlayer and VideoControls
+VideoPlayer and VideoControls. UI for user interaction with the Video player.
 ### Unit tests 
 App and Components each have their own unit tests
 
@@ -33,7 +33,7 @@ also to check for any coding issues:
 
 ### App.js
 
-Data is loaded asynchronously in App.js. On load, useEffect includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
+Data is loaded asynchronously in App.js. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
     const [videos, setVideos] = useState();
     const fetchData = useCallback(async () => {
@@ -46,12 +46,12 @@ Data is loaded asynchronously in App.js. On load, useEffect includes fetchData i
         fetchData();
     }, [fetchData]);
 
-The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to be state in the component level using setVideos. (Note: In a real-world scenario, where there could be multiple components using Videos, state would be stored at the application level using react-redux and the Store rather than at the component level which would allow data access across different components.)
+The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to the state in setVideos. (Note: In a real-world scenario, where there could be multiple components using Videos, state would be stored at the application level using react-redux and the Store (or another application-level mechanism such as useContext) rather than at the component level. This would allow data access across different components.)
 
 ### Data.js
 
-The getData mtehod in Data.js uses a Promise to asynchronously load json data using 'resolve'. If an error occurs, the Promise returns 'reject' with the error message. (Note: In a real-world scenario, data would be retrieved using a remiote request from a remote URL using axios or similar package).
-
+The getData method in Data.js uses a Promise to asynchronously load json data using 'resolve'. If an error occurs, the Promise returns 'reject' with the error message. (Note: In a real-world scenario, data would be retrieved using a remote request from a remote URL using axios or similar plug-in).
+  
     const getData = () => {
     return new Promise((resolve, reject) => {
         try{
@@ -73,7 +73,7 @@ The VideoPlayer receives Videos from the main app.
 
     VideoPlayer = ({ videos }) =>
 
-Videos are played based on the VideoIndex state property. The videoSrc maintains the current video and isPlaying sets the video to start. Video progress and duration are used to set the progress bar properties.
+Videos are played based on the videoIndex state property. The videoSrc maintains the current video and isPlaying sets the video to start. Video progress and duration are used to set the progress bar properties.
 
     const [videoIndex, setVideoIndex] = useState(0);
     const [videoProgress, setVideoProgress] = useState(0);
@@ -101,7 +101,7 @@ When the videoIndex or videoSrc changes based on the dependencies in useEffect, 
             }
         }, [isPlaying]);
 
-The current video that is playing can be switch using the VideoControls next and previous buttons as well as the onEnd event. When these events are raised the videoIndex is updated.
+The current video that is playing can be switched using the VideoControls next and previous buttons as well as the onEnd event. When these events are raised, isPlaying is set to false the videoIndex is updated.
 
         const toPrevVideo = () => {
             setIsPlaying(false);
@@ -121,10 +121,11 @@ The current video that is playing can be switch using the VideoControls next and
             }
         };
 
-The HMTLVideoElement is maintained through re-renders by keeping through the videoRef. This allows the Video to not be impacted by state changes. There are build in events and properties of the Video:
-poster provides a default background before the video is loaded.
-onDurationChangeHandler updates the state for the progress bar
-onEnded manages the next video to play once the current one completes
+The HMTLVideoElement is maintained through re-renders by the use of the useRef hook, videoRef. There are built-in events and properties of the Video:
+
+-poster provides a default background before the video is loaded.
+-onDurationChangeHandler updates the state for the progress bar
+-onEnded manages the next video to play once the current one completes
 
             const videoRef = useRef();
 
@@ -145,7 +146,7 @@ The data for the progress bar is maintained using the intervalRef:
 
     const intervalRef = useRef();
 
-The intervalRef is started when the video is started, calling the startTimer. The videoProgress is updated using setInterval. The interval is reset when the video ends.
+The intervalRef function updates the videoProgress each second in the startTimer function. It is called when the video is started. The interval is reset when the video ends.
 
 const onDurationChangeHandler = e => {
 const seconds = Math.floor(e.target.duration);
@@ -200,4 +201,8 @@ VideoControls receives callback handlers to respond to events from buttons for P
 
 ### Unit tests
 
-App.js, VideoPlayer and VideoControls are unit tested to verify they are properly loaded. The objective of unit testing is to reflect actual user interacting as accurately as possible. To that end, the react testing library is used for App and VideoPlayer to render the document, initiate user events and assert the results are correct. Also, shallow rendering is used with the react test renderer to verify the app loaded is correct.
+App.js, VideoPlayer and VideoControls are unit tested to verify they are properly loaded. The objective of unit testing is to reflect user interaction as realistically as possible. To that end, the react testing library is used for App and VideoPlayer to render the document, initiate user events and assert the results are correct. Also, shallow rendering is used with the react test renderer to verify the app loaded is correct.
+
+### Conclusion
+
+I hope this is helpful for those learning how to use web hooks effectively. I welcome your feedback to improve this article, All the Best!
